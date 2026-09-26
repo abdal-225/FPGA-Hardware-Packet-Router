@@ -49,6 +49,11 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
     <tool name="Register">
       <a name="width" val="4"/>
     </tool>
+    <tool name="ROM">
+      <a name="contents">addr/data: 8 8
+0
+</a>
+    </tool>
   </lib>
   <lib desc="#I/O" name="5"/>
   <lib desc="#Base" name="6">
@@ -220,13 +225,21 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
     <wire from="(860,330)" to="(870,330)"/>
     <wire from="(610,320)" to="(620,320)"/>
     <wire from="(650,280)" to="(660,280)"/>
-    <comp lib="1" loc="(530,530)" name="AND Gate">
-      <a name="inputs" val="2"/>
-    </comp>
-    <comp lib="0" loc="(840,350)" name="Pin">
+    <comp lib="0" loc="(910,310)" name="Pin">
       <a name="facing" val="west"/>
       <a name="output" val="true"/>
-      <a name="label" val="EMPTY_1"/>
+      <a name="width" val="10"/>
+      <a name="label" val="PACKET_OUT_1"/>
+      <a name="labelloc" val="south"/>
+      <a name="labelfont" val="SansSerif plain 7"/>
+    </comp>
+    <comp lib="1" loc="(530,260)" name="AND Gate">
+      <a name="inputs" val="2"/>
+    </comp>
+    <comp lib="0" loc="(870,420)" name="Pin">
+      <a name="facing" val="west"/>
+      <a name="output" val="true"/>
+      <a name="label" val="FULL_2"/>
       <a name="labelloc" val="south"/>
       <a name="labelfont" val="SansSerif plain 7"/>
     </comp>
@@ -237,12 +250,40 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
       <a name="labelloc" val="south"/>
       <a name="labelfont" val="SansSerif plain 7"/>
     </comp>
-    <comp lib="0" loc="(870,240)" name="Pin">
-      <a name="facing" val="west"/>
-      <a name="output" val="true"/>
-      <a name="label" val="FULL_0"/>
+    <comp lib="0" loc="(610,410)" name="Pin">
+      <a name="label" val="READ_MODE_2"/>
       <a name="labelloc" val="south"/>
       <a name="labelfont" val="SansSerif plain 7"/>
+    </comp>
+    <comp lib="0" loc="(650,460)" name="Pin">
+      <a name="label" val="READ_EN_2"/>
+      <a name="labelloc" val="south"/>
+      <a name="labelfont" val="SansSerif plain 7"/>
+    </comp>
+    <comp lib="0" loc="(610,500)" name="Pin">
+      <a name="label" val="READ_MODE_3"/>
+      <a name="labelloc" val="south"/>
+      <a name="labelfont" val="SansSerif plain 7"/>
+    </comp>
+    <comp lib="0" loc="(650,550)" name="Pin">
+      <a name="label" val="READ_EN_3"/>
+      <a name="labelloc" val="south"/>
+      <a name="labelfont" val="SansSerif plain 7"/>
+    </comp>
+    <comp lib="0" loc="(430,150)" name="Pin">
+      <a name="label" val="WRITE_EN"/>
+      <a name="labelloc" val="south"/>
+      <a name="labelfont" val="SansSerif plain 7"/>
+    </comp>
+    <comp lib="0" loc="(840,260)" name="Pin">
+      <a name="facing" val="west"/>
+      <a name="output" val="true"/>
+      <a name="label" val="EMPTY_0"/>
+      <a name="labelloc" val="south"/>
+      <a name="labelfont" val="SansSerif plain 7"/>
+    </comp>
+    <comp lib="1" loc="(530,440)" name="AND Gate">
+      <a name="inputs" val="2"/>
     </comp>
     <comp lib="0" loc="(650,280)" name="Pin">
       <a name="label" val="READ_EN_0"/>
@@ -252,28 +293,17 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
     <comp lib="7" loc="(810,220)" name="main">
       <a name="label" val="Buffered_OUT_0"/>
     </comp>
-    <comp lib="7" loc="(810,400)" name="main">
-      <a name="label" val="Buffered_OUT_2"/>
-    </comp>
-    <comp lib="0" loc="(840,260)" name="Pin">
-      <a name="facing" val="west"/>
-      <a name="output" val="true"/>
-      <a name="label" val="EMPTY_0"/>
-      <a name="labelloc" val="south"/>
-      <a name="labelfont" val="SansSerif plain 7"/>
-    </comp>
-    <comp lib="0" loc="(610,230)" name="Pin">
-      <a name="label" val="READ_MODE_0"/>
-      <a name="labelloc" val="south"/>
-      <a name="labelfont" val="SansSerif plain 7"/>
-    </comp>
     <comp lib="7" loc="(810,310)" name="main">
       <a name="label" val="Buffered_OUT_1"/>
     </comp>
-    <comp lib="7" loc="(810,490)" name="main">
-      <a name="label" val="Buffered_OUT_3"/>
+    <comp lib="0" loc="(910,400)" name="Pin">
+      <a name="facing" val="west"/>
+      <a name="output" val="true"/>
+      <a name="width" val="10"/>
+      <a name="label" val="PACKET_OUT_2"/>
+      <a name="labelloc" val="south"/>
+      <a name="labelfont" val="SansSerif plain 7"/>
     </comp>
-    <comp lib="8" loc="(300,100)" name="Destination_Decoder"/>
     <comp lib="0" loc="(650,370)" name="Pin">
       <a name="label" val="READ_EN_1"/>
       <a name="labelloc" val="south"/>
@@ -285,15 +315,11 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
       <a name="labelloc" val="south"/>
       <a name="labelfont" val="SansSerif plain 7"/>
     </comp>
-    <comp lib="0" loc="(590,620)" name="Pin">
-      <a name="label" val="RESET"/>
-      <a name="labelloc" val="south"/>
-      <a name="labelfont" val="SansSerif plain 7"/>
-    </comp>
-    <comp lib="0" loc="(870,420)" name="Pin">
+    <comp lib="0" loc="(910,220)" name="Pin">
       <a name="facing" val="west"/>
       <a name="output" val="true"/>
-      <a name="label" val="FULL_2"/>
+      <a name="width" val="10"/>
+      <a name="label" val="PACKET_OUT_0"/>
       <a name="labelloc" val="south"/>
       <a name="labelfont" val="SansSerif plain 7"/>
     </comp>
@@ -304,86 +330,18 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
       <a name="labelloc" val="south"/>
       <a name="labelfont" val="SansSerif plain 7"/>
     </comp>
-    <comp lib="9" loc="(220,90)" name="Packet_Input"/>
-    <comp lib="0" loc="(870,330)" name="Pin">
-      <a name="facing" val="west"/>
-      <a name="output" val="true"/>
-      <a name="label" val="FULL_1"/>
-      <a name="labelloc" val="south"/>
-      <a name="labelfont" val="SansSerif plain 7"/>
-    </comp>
-    <comp lib="0" loc="(650,460)" name="Pin">
-      <a name="label" val="READ_EN_2"/>
+    <comp lib="0" loc="(610,230)" name="Pin">
+      <a name="label" val="READ_MODE_0"/>
       <a name="labelloc" val="south"/>
       <a name="labelfont" val="SansSerif plain 7"/>
     </comp>
     <comp lib="1" loc="(530,350)" name="AND Gate">
       <a name="inputs" val="2"/>
     </comp>
-    <comp lib="0" loc="(610,500)" name="Pin">
-      <a name="label" val="READ_MODE_3"/>
-      <a name="labelloc" val="south"/>
-      <a name="labelfont" val="SansSerif plain 7"/>
-    </comp>
-    <comp lib="0" loc="(590,660)" name="Pin">
-      <a name="label" val="CLK"/>
-      <a name="labelloc" val="south"/>
-      <a name="labelfont" val="SansSerif plain 7"/>
-    </comp>
-    <comp lib="0" loc="(430,150)" name="Pin">
-      <a name="label" val="WRITE_EN"/>
-      <a name="labelloc" val="south"/>
-      <a name="labelfont" val="SansSerif plain 7"/>
-    </comp>
-    <comp lib="0" loc="(910,220)" name="Pin">
+    <comp lib="0" loc="(870,240)" name="Pin">
       <a name="facing" val="west"/>
       <a name="output" val="true"/>
-      <a name="width" val="10"/>
-      <a name="label" val="PACKET_OUT_0"/>
-      <a name="labelloc" val="south"/>
-      <a name="labelfont" val="SansSerif plain 7"/>
-    </comp>
-    <comp lib="0" loc="(610,410)" name="Pin">
-      <a name="label" val="READ_MODE_2"/>
-      <a name="labelloc" val="south"/>
-      <a name="labelfont" val="SansSerif plain 7"/>
-    </comp>
-    <comp lib="0" loc="(650,550)" name="Pin">
-      <a name="label" val="READ_EN_3"/>
-      <a name="labelloc" val="south"/>
-      <a name="labelfont" val="SansSerif plain 7"/>
-    </comp>
-    <comp lib="1" loc="(530,260)" name="AND Gate">
-      <a name="inputs" val="2"/>
-    </comp>
-    <comp lib="0" loc="(870,510)" name="Pin">
-      <a name="facing" val="west"/>
-      <a name="output" val="true"/>
-      <a name="label" val="FULL_3"/>
-      <a name="labelloc" val="south"/>
-      <a name="labelfont" val="SansSerif plain 7"/>
-    </comp>
-    <comp lib="1" loc="(530,440)" name="AND Gate">
-      <a name="inputs" val="2"/>
-    </comp>
-    <comp lib="0" loc="(610,320)" name="Pin">
-      <a name="label" val="READ_MODE_1"/>
-      <a name="labelloc" val="south"/>
-      <a name="labelfont" val="SansSerif plain 7"/>
-    </comp>
-    <comp lib="0" loc="(910,310)" name="Pin">
-      <a name="facing" val="west"/>
-      <a name="output" val="true"/>
-      <a name="width" val="10"/>
-      <a name="label" val="PACKET_OUT_1"/>
-      <a name="labelloc" val="south"/>
-      <a name="labelfont" val="SansSerif plain 7"/>
-    </comp>
-    <comp lib="0" loc="(910,400)" name="Pin">
-      <a name="facing" val="west"/>
-      <a name="output" val="true"/>
-      <a name="width" val="10"/>
-      <a name="label" val="PACKET_OUT_2"/>
+      <a name="label" val="FULL_0"/>
       <a name="labelloc" val="south"/>
       <a name="labelfont" val="SansSerif plain 7"/>
     </comp>
@@ -392,6 +350,58 @@ This file is intended to be loaded by Logisim (http://www.cburch.com/logisim/).
       <a name="output" val="true"/>
       <a name="width" val="10"/>
       <a name="label" val="PACKET_OUT_3"/>
+      <a name="labelloc" val="south"/>
+      <a name="labelfont" val="SansSerif plain 7"/>
+    </comp>
+    <comp lib="0" loc="(870,510)" name="Pin">
+      <a name="facing" val="west"/>
+      <a name="output" val="true"/>
+      <a name="label" val="FULL_3"/>
+      <a name="labelloc" val="south"/>
+      <a name="labelfont" val="SansSerif plain 7"/>
+    </comp>
+    <comp lib="0" loc="(590,660)" name="Pin">
+      <a name="label" val="CLK"/>
+      <a name="labelloc" val="south"/>
+      <a name="labelfont" val="SansSerif plain 7"/>
+    </comp>
+    <comp lib="9" loc="(220,90)" name="Packet_Input">
+      <a name="label" val="Packet_Input.circ"/>
+      <a name="labelloc" val="south"/>
+    </comp>
+    <comp lib="0" loc="(590,620)" name="Pin">
+      <a name="label" val="RESET"/>
+      <a name="labelloc" val="south"/>
+      <a name="labelfont" val="SansSerif plain 7"/>
+    </comp>
+    <comp lib="7" loc="(810,490)" name="main">
+      <a name="label" val="Buffered_OUT_3"/>
+    </comp>
+    <comp lib="1" loc="(530,530)" name="AND Gate">
+      <a name="inputs" val="2"/>
+    </comp>
+    <comp lib="8" loc="(300,100)" name="Destination_Decoder">
+      <a name="label" val="Destination_Decoder"/>
+    </comp>
+    <comp lib="0" loc="(870,330)" name="Pin">
+      <a name="facing" val="west"/>
+      <a name="output" val="true"/>
+      <a name="label" val="FULL_1"/>
+      <a name="labelloc" val="south"/>
+      <a name="labelfont" val="SansSerif plain 7"/>
+    </comp>
+    <comp lib="7" loc="(810,400)" name="main">
+      <a name="label" val="Buffered_OUT_2"/>
+    </comp>
+    <comp lib="0" loc="(840,350)" name="Pin">
+      <a name="facing" val="west"/>
+      <a name="output" val="true"/>
+      <a name="label" val="EMPTY_1"/>
+      <a name="labelloc" val="south"/>
+      <a name="labelfont" val="SansSerif plain 7"/>
+    </comp>
+    <comp lib="0" loc="(610,320)" name="Pin">
+      <a name="label" val="READ_MODE_1"/>
       <a name="labelloc" val="south"/>
       <a name="labelfont" val="SansSerif plain 7"/>
     </comp>
