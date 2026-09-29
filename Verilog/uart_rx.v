@@ -28,105 +28,74 @@ module uart_rx(
     reg [7:0] DATA_REG;
 
     always @(posedge CLK) begin
+    if (RESET) begin
+        STATE <= IDLE;
+        CLK_COUNT <= 16'd0;
+        BIT_COUNT <= 3'd0;
+        DATA_REG <= 8'd0;
+        DATA_OUT <= 8'd0;
+        DATA_VALID <= 1'b0;
+    end else begin
 
-        if (RESET) begin
+        // DATA_VALID is normally low.
+        // It becomes high for only one clock
+        // when a complete UART byte is received.
+        DATA_VALID <= 1'b0;
 
-            STATE      <= IDLE;
-            CLK_COUNT  <= 16'd0;
-            BIT_COUNT  <= 3'd0;
-            DATA_REG   <= 8'd0;
-            DATA_OUT   <= 8'd0;
-            DATA_VALID <= 1'b0;
+        case (STATE)
 
-        end
+            IDLE: begin
+                CLK_COUNT <= 16'd0;
+                BIT_COUNT <= 3'd0;
 
-        else begin
+                if (RX == 1'b0)
+                    STATE <= START;
+            end
 
-            case (STATE)
-
-                IDLE: begin
-
+            START: begin
+                if (CLK_COUNT < HALF_BIT - 1)
+                    CLK_COUNT <= CLK_COUNT + 1'b1;
+                else begin
                     CLK_COUNT <= 16'd0;
-                    BIT_COUNT <= 3'd0;
 
-                    if (RX == 1'b0) begin
-                        STATE <= START;
-                    end
-
-                end
-
-                START: begin
-
-                    if (CLK_COUNT < HALF_BIT - 1) begin
-                        CLK_COUNT <= CLK_COUNT + 1'b1;
-                    end
-
-                    else begin
-
-                        CLK_COUNT <= 16'd0;
-
-                        if (RX == 1'b0) begin
-                            STATE <= DATA;
-                        end
-
-                        else begin
-                            STATE <= IDLE;
-                        end
-
-                    end
-
-                end
-
-                DATA: begin
-
-                    if (CLK_COUNT < CLKS_PER_BIT - 1) begin
-                        CLK_COUNT <= CLK_COUNT + 1'b1;
-                    end
-
-                    else begin
-
-                        CLK_COUNT <= 16'd0;
-
-                        DATA_REG[BIT_COUNT] <= RX;
-
-                        if (BIT_COUNT == 3'd7) begin
-                            STATE <= STOP;
-                        end
-
-                        else begin
-                            BIT_COUNT <= BIT_COUNT + 1'b1;
-                        end
-
-                    end
-
-                end
-
-                STOP: begin
-
-                    if (CLK_COUNT < CLKS_PER_BIT - 1) begin
-                        CLK_COUNT <= CLK_COUNT + 1'b1;
-                    end
-
-                    else begin
-
-                        CLK_COUNT <= 16'd0;
-
-                        if (RX == 1'b1) begin
-
-                            DATA_OUT   <= DATA_REG;
-                            DATA_VALID <= 1'b1;
-
-                        end
-
+                    if (RX == 1'b0)
+                        STATE <= DATA;
+                    else
                         STATE <= IDLE;
+                end
+            end
 
+            DATA: begin
+                if (CLK_COUNT < CLKS_PER_BIT - 1)
+                    CLK_COUNT <= CLK_COUNT + 1'b1;
+                else begin
+                    CLK_COUNT <= 16'd0;
+
+                    DATA_REG[BIT_COUNT] <= RX;
+
+                    if (BIT_COUNT == 3'd7)
+                        STATE <= STOP;
+                    else
+                        BIT_COUNT <= BIT_COUNT + 1'b1;
+                end
+            end
+
+            STOP: begin
+                if (CLK_COUNT < CLKS_PER_BIT - 1)
+                    CLK_COUNT <= CLK_COUNT + 1'b1;
+                else begin
+                    CLK_COUNT <= 16'd0;
+
+                    if (RX == 1'b1) begin
+                        DATA_OUT <= DATA_REG;
+                        DATA_VALID <= 1'b1;
                     end
 
+                    STATE <= IDLE;
                 end
+            end
 
-            endcase
-
-        end
-
+        endcase
     end
+end
 endmodule
