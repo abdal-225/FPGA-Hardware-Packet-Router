@@ -1,7 +1,7 @@
 module fpga_packet_router_top (
 
     input  wire       CLK,
-    input  wire       RESET,
+    input  wire       CPU_RESETN,
 
     // UART interface
     input  wire       UART_RX,
@@ -9,6 +9,9 @@ module fpga_packet_router_top (
 
 );
 
+    wire RESET;
+
+    assign RESET = ~CPU_RESETN;
     // =========================================================
     // UART RX
     // =========================================================
